@@ -2,97 +2,137 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  <link rel="stylesheet" href="./assets/style/style.css">
-  
+  <!-- <link rel="stylesheet" href="style.css"> -->
   <title>Frontend Mentor | Typing Speed Test</title>
-
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
 </head>
 <body>
 
-  <div class="container">
-  <!-- Personal best: PB WPM -->
-
-  <div class="top-bar">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">
+      <img src="./assets/images/logo-small.svg" alt="Typing Speed Test logo" width="32" height="32">
+      <div class="logo-text">
+        <span class="logo-title">Typing Speed Test</span>
+        <span class="logo-sub">Type as fast as you can in 60 seconds</span>
+      </div>
+    </div>
     <div class="personal-best">
-      Personal best: <span id="personal-best">0</span> WPM
+      <img src="./assets/images/icon-personal-best.svg" alt="trophy" width="20" height="20">
+      <span>Personal best: <strong id="personal-best-value">--</strong> WPM</span>
     </div>
-  </div>
+  </header>
 
-   <!-- WPM: WPM
-  Accuracy: Accuracy
-  Time: Time -->
+  <!-- MAIN TEST SCREEN -->
+  <main id="test-screen" class="test-screen">
 
-  <div class="stats">
-    <span>WPM: <span id="wpm">0</span></span>
-    <span>Accuracy: <span id="accuracy">100</span>%</span>
-    <span>Time: <span id="time">60</span>s</span>
-  </div>
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat">
+        <span class="stat-label">WPM:</span>
+        <strong class="stat-value" id="wpm">0</strong>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-label">Accuracy:</span>
+        <strong class="stat-value accent-red" id="accuracy">100%</strong>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-label">Time:</span>
+        <strong class="stat-value accent-yellow" id="time-display">0:60</strong>
+      </div>
 
-   <!-- Difficulty:
-  Easy
-  Medium
-  Hard -->
-
-  <div class="controls">
-    <div>
-      <strong>Difficulty:</strong>
-      <button data-difficulty="easy">Easy</button>
-      <button data-difficulty="medium">Medium</button>
-      <button data-difficulty="hard">Hard</button>
+      <div class="controls-group">
+        <div class="control-section">
+          <span class="control-label">Difficulty:</span>
+          <div class="btn-group" role="group" aria-label="Difficulty">
+            <button class="btn-toggle" data-difficulty="easy">Easy</button>
+            <button class="btn-toggle" data-difficulty="medium">Medium</button>
+            <button class="btn-toggle active" data-difficulty="hard">Hard</button>
+          </div>
+        </div>
+        <div class="control-section">
+          <span class="control-label">Mode:</span>
+          <div class="btn-group" role="group" aria-label="Mode">
+            <button class="btn-toggle active" data-mode="timed">Timed (60s)</button>
+            <button class="btn-toggle" data-mode="passage">Passage</button>
+          </div>
+        </div>
+      </div>
     </div>
-<!-- Mode:
-  Timed (60s)
-  Passage -->
 
-    <div>
-      <strong>Mode:</strong>
-      <button data-mode="timed">Timed (60s)</button>
-      <button data-mode="passage">Passage</button>
+    <!-- Passage Display Area -->
+    <div class="passage-wrapper">
+      <div id="text-display" class="text-display" tabindex="0" aria-label="Typing passage, click to start"></div>
+
+      <!-- Start Overlay -->
+      <div id="start-overlay" class="start-overlay">
+        <button id="start-btn" class="btn-start">Start Typing Test</button>
+        <p class="start-hint">Or click the text and start typing</p>
+      </div>
     </div>
-  </div>
 
-   <!-- Passage -->
+    <!-- Hidden input to capture keystrokes -->
+    <input type="text" id="hidden-input" class="hidden-input" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-hidden="true" tabindex="-1">
 
-  <!-- Start Typing Test
-  Or click the text and start typing -->
+    <!-- Bottom divider + Restart -->
+    <div class="bottom-bar">
+      <hr class="divider">
+      <button id="restart-btn" class="btn-restart" aria-label="Restart test">
+        Restart Test
+        <img src="./assets/images/icon-restart.svg" alt="" width="16" height="16">
+      </button>
+    </div>
 
-  <div id="text-display"></div>
+  </main>
 
-  <input type="text" id="hidden-input" autofocus />
+  <!-- RESULTS SCREEN -->
+  <section id="results-screen" class="results-screen hidden" aria-live="polite">
 
-  <button id="restart">Restart</button>
+    <!-- Decorative stars -->
+    <img src="./assets/images/pattern-star-1.svg" alt="" class="deco-star star-left" aria-hidden="true">
+    <img src="./assets/images/pattern-star-2.svg" alt="" class="deco-star star-right" aria-hidden="true">
 
-</div>
+    <!-- Result icon -->
+    <div id="result-icon-wrapper" class="result-icon-wrapper"></div>
 
- 
- 
-  
+    <h1 id="result-title" class="result-title"></h1>
+    <p id="result-subtitle" class="result-subtitle"></p>
 
-  <!-- Test Complete Start -->
+    <!-- Result stats -->
+    <div class="result-stats">
+      <div class="result-stat-card">
+        <span class="result-stat-label">WPM:</span>
+        <strong id="result-wpm" class="result-stat-value">0</strong>
+      </div>
+      <div class="result-stat-card">
+        <span class="result-stat-label">Accuracy:</span>
+        <strong id="result-accuracy" class="result-stat-value accent-red">0%</strong>
+      </div>
+      <div class="result-stat-card">
+        <span class="result-stat-label">Characters</span>
+        <strong class="result-stat-value">
+          <span id="result-chars-correct" class="accent-green">0</span>/<span id="result-chars-wrong" class="accent-red">0</span>
+        </strong>
+      </div>
+    </div>
 
-  <!-- Test Complete!
-  Solid run. Keep pushing to beat your high score. -->
+    <button id="go-again-btn" class="btn-go-again">
+      Go Again
+      <img src="./assets/images/icon-restart.svg" alt="" width="16" height="16">
+    </button>
 
-  <!-- WPM: WPM
-  Accuracy: Accuracy
-  Characters: Correct/Incorrect
-
-  Go Again -->
-  
-  <!-- Test Complete End -->
+    <!-- Confetti canvas (new PB) -->
+    <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+  </section>
 
   <div class="attribution">
-    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank" rel="noopener">Frontend Mentor</a>.
     Coded by <a href="#">Payal DipaK Gandhile</a>.
   </div>
-   <script src="./script.js"></script>
+
+  <script src="./script.js"></script>
 </body>
 </html>
