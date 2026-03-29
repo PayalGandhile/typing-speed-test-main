@@ -8,20 +8,25 @@
 }
 
 :root {
-  --neutral-900: hsl(0, 1%, 17%);
-  --neutral-800: hsl(0, 0%, 25%);
-  --neutral-500: hsl(240, 4%, 64%);
-  --neutral-400: hsl(240, 37%, 86%);
-  --neutral-0: hsl(0, 0%, 100%);
+  /* Brand */
+  --primary: hsl(210, 100%, 50%);
+  --primary-hover: hsl(210, 100%, 60%);
 
-  --blue-600: hsl(214, 94%, 31%);
-  --blue-400: hsl(210, 100%, 65%);
+  /* UI */
+  --bg: hsl(220, 15%, 10%);
+  --surface: hsl(220, 10%, 18%);
+  --border: hsl(220, 10%, 25%);
 
-  --red-500:red;
-  --green-500: green;
-  --yellow-400: yellow;
+  /* Text */
+  --text: hsl(0, 0%, 100%);
+  --text-muted: hsl(220, 10%, 70%);
 
-  --font: 'Sora', Arial, sans-serif;
+  /* States */
+  --success: hsl(140, 60%, 45%);
+  --error: hsl(0, 70%, 55%);
+  --warning: hsl(45, 90%, 55%);
+
+   --font: 'Sora', Arial, sans-serif;
 }
 
 /* =========================================
@@ -38,8 +43,8 @@ html {
 }
 
 body {
-  background-color: var(--neutral-900);
-  color: var(--neutral-0);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: var(--font);
   min-height: 100vh;
   display: flex;
@@ -52,10 +57,10 @@ body {
    ========================================= */
 .hidden { display: none !important; }
 
-.accent-red   { color: var(--red-500); }
-.accent-green { color: var(--green-500); }
-.accent-yellow{ color: var(--yellow-400); }
-.accent-blue  { color: var(--blue-400); }
+.accent-red   { color: var(--error); }
+.accent-green { color: var(  --success); }
+.accent-yellow{ color: var(--warning); }
+.accent-blue  { color: var(--primary-hover); }
 
 /* =========================================
    HEADER
@@ -83,13 +88,13 @@ body {
 .logo-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--neutral-0);
+  color: var(--text);
   line-height: 1.2;
 }
 
 .logo-sub {
   font-size: 0.75rem;
-  color: var(--neutral-400);
+  color: var(--text-muted);
   font-weight: 400;
 }
 
@@ -98,11 +103,11 @@ body {
   align-items: center;
   gap: 8px;
   font-size: 0.9rem;
-  color: var(--neutral-400);
+  color: var(--text-muted);
 }
 
 .personal-best strong {
-  color: var(--neutral-0);
+  color: var(--text);
   font-weight: 700;
 }
 
@@ -124,7 +129,7 @@ body {
   align-items: center;
   gap: 0;
   padding: 18px 0;
-  border-bottom: 1px solid var(--neutral-800);
+  border-bottom: 1px solid var(--surface);
   margin-bottom: 32px;
   flex-wrap: wrap;
   gap: 12px;
@@ -138,20 +143,20 @@ body {
 }
 
 .stat-label {
-  color: var(--neutral-400);
+  color: var(--text-muted);
   font-weight: 400;
 }
 
 .stat-value {
   font-weight: 700;
   font-size: 1.25rem;
-  color: var(--neutral-0);
+  color: var(--text);
 }
 
 .stat-divider {
   width: 1px;
   height: 20px;
-  background: var(--neutral-800);
+  background: var(--surface);
   margin: 0 16px;
 }
 
@@ -171,7 +176,7 @@ body {
 
 .control-label {
   font-size: 0.9rem;
-  color: var(--neutral-400);
+  color: var(--text-muted);
   font-weight: 400;
   white-space: nowrap;
 }
@@ -183,8 +188,8 @@ body {
 
 .btn-toggle {
   background: transparent;
-  border: 1px solid var(--neutral-800);
-  color: var(--neutral-400);
+  border: 1px solid var(--surface);
+  color: var(--text-muted);
   font-family: var(--font);
   font-size: 0.85rem;
   font-weight: 600;
@@ -211,19 +216,19 @@ body {
 }
 
 .btn-toggle:hover {
-  background: var(--neutral-800);
-  color: var(--neutral-0);
-  border-color: var(--neutral-500);
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--border);
 }
 
 .btn-toggle.active {
-  background: var(--blue-600);
-  border-color: var(--blue-600);
-  color: var(--neutral-0);
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--text);
 }
 
 .btn-toggle:focus-visible {
-  outline: 2px solid var(--blue-400);
+  outline: 2px solid var(--primary-hover);
   outline-offset: 2px;
   z-index: 1;
   position: relative;
@@ -242,7 +247,7 @@ body {
   background: transparent;
   font-size: 1.35rem;
   line-height: 1.75;
-  color: var(--neutral-500);
+  color: var(--border);
   letter-spacing: 0.01em;
   user-select: none;
   min-height: 220px;
@@ -276,7 +281,7 @@ body {
   bottom: -2px;
   width: 2px;
   height: 100%;
-  background: var(--neutral-400);
+  background: var(--text-muted);
   animation: blink 1s step-end infinite;
 }
 
@@ -303,8 +308,8 @@ body {
 }
 
 .btn-start {
-  background: var(--blue-600);
-  color: var(--neutral-0);
+  background: var(--primary);
+  color: var(--text);
   border: none;
   font-family: var(--font);
   font-size: 1rem;
@@ -316,18 +321,18 @@ body {
 }
 
 .btn-start:hover {
-  background: var(--blue-400);
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
 .btn-start:focus-visible {
-  outline: 2px solid var(--blue-400);
+  outline: 2px solid var(--primary-hover);
   outline-offset: 2px;
 }
 
 .start-hint {
   font-size: 0.9rem;
-  color: var(--neutral-400);
+  color: var(--text-muted);
   font-weight: 600;
 }
 
@@ -353,16 +358,16 @@ body {
 .divider {
   width: 100%;
   border: none;
-  border-top: 1px solid var(--neutral-800);
+  border-top: 1px solid var(--surface);
 }
 
 .btn-restart {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--neutral-800);
-  border: 1px solid var(--neutral-800);
-  color: var(--neutral-0);
+  background: var(--surface);
+  border: 1px solid var(--surface);
+  color: var(--text);
   font-family: var(--font);
   font-size: 0.95rem;
   font-weight: 600;
@@ -373,12 +378,12 @@ body {
 }
 
 .btn-restart:hover {
-  background: var(--neutral-500);
-  border-color: var(--neutral-500);
+  background: var(--border);
+  border-color: var(--border);
 }
 
 .btn-restart:focus-visible {
-  outline: 2px solid var(--blue-400);
+  outline: 2px solid var(--primary-hover);
   outline-offset: 2px;
 }
 
@@ -434,13 +439,13 @@ body {
 .result-title {
   font-size: 2.25rem;
   font-weight: 700;
-  color: var(--neutral-0);
+  color: var(--text);
   text-align: center;
 }
 
 .result-subtitle {
   font-size: 1rem;
-  color: var(--neutral-400);
+  color: var(--text-muted);
   text-align: center;
 }
 
@@ -454,7 +459,7 @@ body {
 }
 
 .result-stat-card {
-  border: 1px solid var(--neutral-800);
+  border: 1px solid var(--surface);
   border-radius: 10px;
   padding: 16px 28px;
   min-width: 140px;
@@ -465,14 +470,14 @@ body {
 
 .result-stat-label {
   font-size: 0.9rem;
-  color: var(--neutral-400);
+  color: var(--text-muted);
   font-weight: 400;
 }
 
 .result-stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--neutral-0);
+  color: var(--text);
 }
 
 /* Go Again button */
@@ -480,9 +485,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--neutral-0);
-  border: 2px solid var(--neutral-0);
-  color: var(--neutral-900);
+  background: var(--text);
+  border: 2px solid var(--text);
+  color: var(--bg);
   font-family: var(--font);
   font-size: 1rem;
   font-weight: 700;
@@ -494,12 +499,12 @@ body {
 }
 
 .btn-go-again:hover {
-  background: var(--neutral-400);
-  border-color: var(--neutral-400);
+  background: var(--text-muted);
+  border-color: var(--text-muted);
 }
 
 .btn-go-again:focus-visible {
-  outline: 2px solid var(--blue-400);
+  outline: 2px solid var(--primary-hover);
   outline-offset: 2px;
 }
 
@@ -519,12 +524,12 @@ body {
 .attribution {
   font-size: 11px;
   text-align: center;
-  color: var(--neutral-500);
+  color: var(--border);
   padding: 16px;
 }
 
 .attribution a {
-  color: var(--blue-400);
+  color: var(--primary-hover);
   text-decoration: none;
 }
 
