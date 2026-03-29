@@ -3,45 +3,45 @@
    ========================================= */
 
 // ---- DOM refs ----
-const testScreen       = document.getElementById('test-screen');
-const resultsScreen    = document.getElementById('results-screen');
-const textDisplay      = document.getElementById('text-display');
-const hiddenInput      = document.getElementById('hidden-input');
-const startOverlay     = document.getElementById('start-overlay');
-const startBtn         = document.getElementById('start-btn');
-const restartBtn       = document.getElementById('restart-btn');
-const goAgainBtn       = document.getElementById('go-again-btn');
+const testScreen = document.getElementById('test-screen');
+const resultsScreen = document.getElementById('results-screen');
+const textDisplay = document.getElementById('text-display');
+const hiddenInput = document.getElementById('hidden-input');
+const startOverlay = document.getElementById('start-overlay');
+const startBtn = document.getElementById('start-btn');
+const restartBtn = document.getElementById('restart-btn');
+const goAgainBtn = document.getElementById('go-again-btn');
 
-const wpmEl            = document.getElementById('wpm');
-const accuracyEl       = document.getElementById('accuracy');
-const timeDisplayEl    = document.getElementById('time-display');
-const personalBestEl   = document.getElementById('personal-best-value');
+const wpmEl = document.getElementById('wpm');
+const accuracyEl = document.getElementById('accuracy');
+const timeDisplayEl = document.getElementById('time-display');
+const personalBestEl = document.getElementById('personal-best-value');
 
-const resultTitleEl    = document.getElementById('result-title');
+const resultTitleEl = document.getElementById('result-title');
 const resultSubtitleEl = document.getElementById('result-subtitle');
-const resultWpmEl      = document.getElementById('result-wpm');
+const resultWpmEl = document.getElementById('result-wpm');
 const resultAccuracyEl = document.getElementById('result-accuracy');
 const resultCharsCorrectEl = document.getElementById('result-chars-correct');
-const resultCharsWrongEl   = document.getElementById('result-chars-wrong');
-const resultIconWrapper    = document.getElementById('result-icon-wrapper');
-const confettiCanvas       = document.getElementById('confetti-canvas');
+const resultCharsWrongEl = document.getElementById('result-chars-wrong');
+const resultIconWrapper = document.getElementById('result-icon-wrapper');
+const confettiCanvas = document.getElementById('confetti-canvas');
 
-const difficultyBtns   = document.querySelectorAll('[data-difficulty]');
-const modeBtns         = document.querySelectorAll('[data-mode]');
+const difficultyBtns = document.querySelectorAll('[data-difficulty]');
+const modeBtns = document.querySelectorAll('[data-mode]');
 
 // ---- State ----
-let allData       = null;
-let currentText   = '';
-let charIndex     = 0;
-let errorCount    = 0;
-let totalErrors   = 0;   // errors that ever happened (for accuracy)
-let started       = false;
-let finished      = false;
+let allData = null;
+let currentText = '';
+let charIndex = 0;
+let errorCount = 0;
+let totalErrors = 0;   // errors that ever happened (for accuracy)
+let started = false;
+let finished = false;
 let timerInterval = null;
-let elapsedSecs   = 0;
-let timedSecs     = 60;
+let elapsedSecs = 0;
+let timedSecs = 60;
 let currentDifficulty = 'hard';
-let currentMode   = 'timed';
+let currentMode = 'timed';
 const TIMED_LIMIT = 60;
 
 // ---- localStorage personal best ----
@@ -106,17 +106,17 @@ function updateCursor() {
 
 // ---- Reset state (no reload of passage) ----
 function resetState() {
-  charIndex   = 0;
-  errorCount  = 0;
+  charIndex = 0;
+  errorCount = 0;
   totalErrors = 0;
-  started     = false;
-  finished    = false;
+  started = false;
+  finished = false;
   elapsedSecs = 0;
-  timedSecs   = TIMED_LIMIT;
+  timedSecs = TIMED_LIMIT;
   clearInterval(timerInterval);
   timerInterval = null;
 
-  wpmEl.textContent      = '0';
+  wpmEl.textContent = '0';
   accuracyEl.textContent = '100%';
   updateTimeDisplay();
 
@@ -177,7 +177,7 @@ hiddenInput.addEventListener('input', (e) => {
   if (!started || finished) return;
 
   const spans = getCharSpans();
-  const typed  = hiddenInput.value;
+  const typed = hiddenInput.value;
   const lastChar = typed[typed.length - 1];
   hiddenInput.value = ''; // always reset so we track one char at a time
 
@@ -233,11 +233,11 @@ function finishTest() {
   const finalWPM = Math.round(wordsTyped / minutes);
 
   const attempted = charIndex + totalErrors;
-  const finalAcc  = attempted > 0
+  const finalAcc = attempted > 0
     ? Math.round((charIndex / (charIndex + totalErrors)) * 100)
     : 100;
   const charsCorrect = charIndex - countWrong();
-  const charsWrong   = countWrong();
+  const charsWrong = countWrong();
 
   // Determine result type
   const pb = getPersonalBest();
@@ -275,24 +275,24 @@ function showResults(wpm, acc, correct, wrong, type) {
   resultWpmEl.textContent = wpm;
   resultAccuracyEl.textContent = `${acc}%`;
   resultCharsCorrectEl.textContent = correct;
-  resultCharsWrongEl.textContent   = wrong;
+  resultCharsWrongEl.textContent = wrong;
 
   confettiCanvas.classList.add('hidden');
 
   if (type === 'first') {
     resultIconWrapper.innerHTML = `<img src="./assets/images/icon-completed.svg" alt="Completed" width="80" height="80">`;
-    resultTitleEl.textContent   = 'Baseline Established!';
+    resultTitleEl.textContent = 'Baseline Established!';
     resultSubtitleEl.textContent = "You've set the bar. Now the real challenge begins—time to beat it.";
     goAgainBtn.childNodes[0].textContent = 'Beat This Score ';
   } else if (type === 'new-pb') {
     resultIconWrapper.innerHTML = `<img src="./assets/images/icon-new-pb.svg" alt="New Personal Best" width="80" height="80">`;
-    resultTitleEl.textContent   = 'High Score Smashed!';
+    resultTitleEl.textContent = 'High Score Smashed!';
     resultSubtitleEl.textContent = "You're getting faster. That was incredible typing.";
     goAgainBtn.childNodes[0].textContent = 'Beat This Score ';
     launchConfetti();
   } else {
     resultIconWrapper.innerHTML = `<img src="./assets/images/icon-completed.svg" alt="Completed" width="80" height="80">`;
-    resultTitleEl.textContent   = 'Test Complete!';
+    resultTitleEl.textContent = 'Test Complete!';
     resultSubtitleEl.textContent = 'Solid run. Keep pushing to beat your high score.';
     goAgainBtn.childNodes[0].textContent = 'Go Again ';
   }
@@ -302,7 +302,7 @@ function showResults(wpm, acc, correct, wrong, type) {
 function launchConfetti() {
   confettiCanvas.classList.remove('hidden');
   const ctx = confettiCanvas.getContext('2d');
-  confettiCanvas.width  = window.innerWidth;
+  confettiCanvas.width = window.innerWidth;
   confettiCanvas.height = window.innerHeight;
 
   const colors = ['#ef4444', '#3b82f6', '#22c55e', '#f4dc73', '#a855f7'];
