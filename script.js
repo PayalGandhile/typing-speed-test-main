@@ -2,6 +2,7 @@
    TYPING SPEED TEST — COMPLETE SCRIPT
    ========================================= */
 
+   
 // ---- DOM refs ----
 const testScreen = document.getElementById('test-screen');
 const resultsScreen = document.getElementById('results-screen');
