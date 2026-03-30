@@ -267,11 +267,11 @@ body {
 }
 
 .char.correct {
-  color: var(--green-500);
+  color: var(--success);
 }
 
 .char.wrong {
-  color: var(--red-500);
+  color: var(--error);
   text-decoration: underline;
 }
 
